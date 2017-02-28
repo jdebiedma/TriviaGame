@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Smash Bros. Trivia!</title>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/darkly/bootstrap.min.css">
+
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Monoton|Pacifico" rel="stylesheet">
+</head>
+
+<style>
+
+header{text-align: center; }
+
+h1 {
+font-family: 'Pacifico', cursive;
+font-size: 50px;
+
+} 
+
+h3 {
+
+	margin-top: 10.5px
+}
+
+#alert {color: #39f !important;}
+@-webkit-keyframes colours {
+      0% {color: red;}
+     25% {color: cyan;}
+     50% {color: green;}
+     75% {color: yellow;}
+    100% {color: red;}
+
+}
+#alert {
+    -webkit-animation-direction: normal;
+    -webkit-animation-duration: 10s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: colours;
+    -webkit-animation-timing-function: ease;
+}
+
+#questionText {
+
+	text-align: center;
+	font-weight: bold;
+	font-size: 40px;
+}
+
+#answers {
+
+	text-align: center;
+}
+
+#answers:hover {
+
+	background-color: #30817d;
+}
+
+
+
+</style>
+
+
+
+<body>
+
+<header><h1 id = "alert">Super Smash Bros. Trivia!</h1></header>
+
+<div id ="main-container" class="container">
+
+<br>
+
+<div style = "text-align: center" class = "panel">
+
+<div class = "row">
+
+<h2 id = "questionText">Press Begin to start the trivia!</h2>
+<h2 id = "stopwatch">Time Left: 30.00</h2>
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+<div style="text-align: center" class = "row">
+	
+		
+			<button style=" width: 30%;" id = "startButton" type="button" class="btn btn-success">Begin</button>
+		
+	
+</div>
+
+<br>
+
+<div id = "answerHolder">
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<script type="text/javascript" src = "assets/javascript/app.js"></script>
+</body>
+</html>

@@ -102,6 +102,7 @@ var canStillAsk = [];
 
 $("#startButton").on("click", function () {
 
+
 run();
 gameStart = true;
 	$(this).slideUp()
@@ -116,7 +117,7 @@ gameStart = true;
 function nextQuestion() {
 
 	
-
+	gameStart = true;
 	
 		
 	questionTarget = questions[Math.floor(Math.random()*questionCount)].number - 1;
@@ -197,11 +198,25 @@ function nextQuestion() {
 
 						if (answered === questionCount){
 
-							
-							
+						
 							stop();
+							
+							$("#questionText").html('<h2 id = "questionText">You answered '+ points +' out of '+ questionCount +' questions correctly.</h2>');
+							$("#buttonHolder").html('<div id = "buttonHolder" style="text-align: center" class = "row"><button style=" width: 30%;" id = "resetButton" type="button" class="btn btn-success">Play Again</button></div>');
+							$("#answerHolder").html("");
 
+							for (var i = 0; i < 4; i++) {
+								$("answers" + i).html("");
+							}
 
+							$("#resetButton").on("click", function () {
+
+									$(this).slideUp()
+									.css("display: none");
+
+									reset();
+
+							});
 							
 						}
 
@@ -229,10 +244,36 @@ function nextQuestion() {
 	
 	}
 
-if (nextOneEndsit)	 {alert("YAS")};
 
-function endgame () {
 
+function reset () {
+
+run();
+
+
+number = 3000;
+running = false;
+intervalId;
+
+nextOneEndsit = false;
+
+points = 0;
+answered = 0;
+
+gameStart = false;
+
+questionTarget = 100;
+questionText = "";
+answerSelect = "";
+
+askable  = [];
+possibleAnswers = [];
+
+alreadyAsked =[];
+canStillAsk = [];
+
+
+	nextQuestion();
 
 }
 

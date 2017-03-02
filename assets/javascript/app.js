@@ -3,9 +3,18 @@ var number = 3000;
 var running = false;
 var intervalId;
 
+var nextOneEndsit = false;
+
+var points = 0;
+var answered = 0;
+
+var gameStart = false;
+
 var questionTarget = 100;
 var questionText = "";
 var answerSelect = "";
+
+var askable  = [];
 
 var possibleAnswers = [];
  
@@ -48,6 +57,15 @@ var questions = [
 
 		},	
 
+	{
+		number: 5,
+		text: "Who's gonna win Summit Spring 2017?",
+		imageUrl: "assets/images/sakurai.jpeg",
+		answer: "Hungrybox",
+		wrongAnswers: ["Armada", "Mango", "Mew2King"],
+
+		},
+
 
 ]
 
@@ -55,23 +73,74 @@ var questionCount = 0;
 for (var k in questions) {
     if (questions.hasOwnProperty(k)) {
        ++questionCount;
+
+      ;
+
     }
 }
+
+for (var i = 0; i < questionCount; i++) {
+
+	 askable.push(questions[i].text);
+
+	 //bookmark
+		
+	//askable.remove(questions[2].text);
+		//alert(askable);
+
+}
+
+
+
+var alreadyAsked =[];
+var canStillAsk = [];
+
 
 
 
 //alert(questions[1].number);
 
-$("#startButton").on("click", function() {
+$("#startButton").on("click", function () {
 
 run();
-
+gameStart = true;
 	$(this).slideUp()
 	.css("display: none");
 
+	nextQuestion();
+
+});
+
+
+
+function nextQuestion() {
+
+	
+
+	
+		
 	questionTarget = questions[Math.floor(Math.random()*questionCount)].number - 1;
+
+	
+	
+	
 	questionText = questions[questionTarget].text;
 	answerSelect = questions[questionTarget].answer;
+
+	if (alreadyAsked.indexOf(questionText) > -1 && alreadyAsked.length < questionCount ) {
+
+		console.log("Needs another")
+		nextQuestion();
+		
+	}
+
+	else if (alreadyAsked.length < questionCount) { 
+
+	console.log(questionText);
+
+	number = 3000;
+
+	alreadyAsked.push(questionText); //make sure we don't ask the same question twice
 
 	possibleAnswers = questions[questionTarget].wrongAnswers;
 
@@ -79,21 +148,93 @@ run();
 
 	shuffle(possibleAnswers);
 
-	
+	$("#answerHolder").html("");
+
 	for (var i = 0; i < possibleAnswers.length; i++) {
 	
 
-	$("#answerHolder").append('<div class = "row"><div class = "col-md-8 col-md-offset-2"><div id = "answers" class = "panel"><h3 id = "answer'+i+'">'+possibleAnswers[i]+'</h3></div></div></div>')
+	$("#answerHolder").append('<div class = "row"><div class = "col-md-8 col-md-offset-2"><div id = "answers'+i+'" class = "panel prev"><h3 id = "answer'+i+'">'+possibleAnswers[i]+'</h3></div></div></div>');
+	$("#questionText").html('<h2>' + questionText +'</h2>');
+	//IMPORTANT FIX!!
+
+					}
+
+		for (var i = 0; i < possibleAnswers.length; i++) {
+
+	if (possibleAnswers[i] === answerSelect) {
+
+		
+		$("#answers"+i).data("isCorrect", true);
+	}
+
+	else {
+
+		$("#answers"+i).data("isCorrect", false);
+
+	}
+
+				$("#answers"+i).on("click", function(){
+				if (gameStart && answered < questionCount) {
 
 
-	
-	
+
+					
+						if ($(this).data("isCorrect")) {
+
+							points ++;
+							answered ++;
+							console.log("Correct! Score: " + points + " out of " + answered);
+							
+							nextQuestion();
+						}
+				
+						else if(!$(this).data("isCorrect")) {
+
+							answered++;
+								console.log("WRONG! Score: " + points + " out of " + answered);
+								nextQuestion();
+						}
+
+						if (answered === questionCount){
+
+							
+							
+							stop();
+
+
+							
+						}
+
+
+				}
+
+				
+
+
+	});
+
+
+
+
+
+
 	
 	}
 
 
+		}
 
-});
+
+		
+	
+	}
+
+if (nextOneEndsit)	 {alert("YAS")};
+
+function endgame () {
+
+
+}
 
 function run() {
       if (!running ){
@@ -144,3 +285,66 @@ function run() {
         a[j] = x;
     }
 }
+
+
+
+
+/*var numberx = 902398756329856239586239825692856
+
+var isPrime = true;
+
+for (var i = 2; i <= Math.floor(numberx/2); i++) {
+
+
+if (numberx % i === 0) {
+
+	isPrime = false;
+
+	alert("Your number is not prime!");
+
+	break;
+
+}
+else	alert("Your number is prime!");
+	break;
+
+}
+
+
+var files = ["pavans_first_birthday.mov",
+"owens_asleep_at_the_computer.jpg",
+"michael_fights_a_polar_bear.mp4",
+"nate_road_rage.avi",
+"ruby_skydiving.jpeg",
+"ken_getting_his_black_belt.png",
+"dan_winning_underground_street_race.mov",
+"its_hard_to_come_up_with_file_names.gif",
+"seriously_this_is_taking_too_long.mpg",
+"i_wonder_how_many_of_these_i_should_have.png",
+"probably_a_few_more.avi",
+"nutmeg_is_clawing_my_sneakers_again.mp4",
+"cat_i_will_destroy_you.gif",
+"i_wish_we_had_a_dog.jpeg",
+"stop_looking_at_me_like_that_nutmeg.mpeg",
+"aww_i_cant_hate_you.png",
+"omg_my_sneakers.avi",
+"cat_you_are_the_worst.mp4"
+];
+
+var videos = []; 
+var images = [];
+
+for (var i = 0; i < files.length; i++) {
+
+ var lastFour = files[i].substr(files[i].length - 4);
+
+ if (lastFour.includes("m")  || lastFour.includes("avi")) 
+ 	{videos.push(files[i]);}
+ 
+ else {images.push(files[i]);}
+
+}
+console.log(videos);
+console.log(images);
+
+*/

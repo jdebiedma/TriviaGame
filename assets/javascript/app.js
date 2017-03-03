@@ -1,5 +1,8 @@
 
-var number = 3000;
+
+
+
+var number = 2000;
 var running = false;
 var intervalId;
 
@@ -93,7 +96,7 @@ for (var i = 0; i < questionCount; i++) {
 
 
 var alreadyAsked =[];
-var canStillAsk = [];
+
 
 
 
@@ -139,15 +142,22 @@ function nextQuestion() {
 
 	console.log(questionText);
 
-	number = 3000;
+	number = 2000;
 
 	alreadyAsked.push(questionText); //make sure we don't ask the same question twice
 
 	possibleAnswers = questions[questionTarget].wrongAnswers;
 
-	possibleAnswers.push(answerSelect);
+
+	if (possibleAnswers.indexOf(answerSelect) < 0)  {
+
+	possibleAnswers.push(answerSelect);  };
+
+		
 
 	shuffle(possibleAnswers);
+
+
 
 	$("#answerHolder").html("");
 
@@ -160,7 +170,7 @@ function nextQuestion() {
 
 					}
 
-		for (var i = 0; i < possibleAnswers.length; i++) {
+	for (var i = 0; i < possibleAnswers.length; i++) {
 
 	if (possibleAnswers[i] === answerSelect) {
 
@@ -205,9 +215,9 @@ function nextQuestion() {
 							$("#buttonHolder").html('<div id = "buttonHolder" style="text-align: center" class = "row"><button style=" width: 30%;" id = "resetButton" type="button" class="btn btn-success">Play Again</button></div>');
 							$("#answerHolder").html("");
 
-							for (var i = 0; i < 4; i++) {
+							/*for (var i = 0; i < 4; i++) {
 								$("answers" + i).html("");
-							}
+							} */
 
 							$("#resetButton").on("click", function () {
 
@@ -248,12 +258,14 @@ function nextQuestion() {
 
 function reset () {
 
+
 run();
 
+running = true;
 
-number = 3000;
-running = false;
-intervalId;
+number = 2000;
+
+
 
 nextOneEndsit = false;
 
@@ -270,7 +282,7 @@ askable  = [];
 possibleAnswers = [];
 
 alreadyAsked =[];
-canStillAsk = [];
+
 
 
 	nextQuestion();
@@ -326,6 +338,7 @@ function run() {
         a[j] = x;
     }
 }
+
 
 
 

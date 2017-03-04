@@ -36,7 +36,7 @@ var questions = [
 	{
 		number: 2,
 		text: "Who is considered the best character in Super Smash Bros. Melee?",
-		imageUrl: "assets/images/fox.jpeg",
+		imageUrl: "assets/images/fox.jpg",
 		answer: "Fox",
 		wrongAnswers: ["Falco", "Marth", "Pikachu"],
 
@@ -45,7 +45,7 @@ var questions = [
 	{
 		number: 3,
 		text: "Who is the creator of the Super Smash Bros. series?",
-		imageUrl: "assets/images/sakurai.jpeg",
+		imageUrl: "assets/images/sakurai.jpg",
 		answer: "Masahiro Sakurai",
 		wrongAnswers: ["Shigeru Miyamoto", "Charles Martinet", "Hideo Kojima"],
 
@@ -54,7 +54,7 @@ var questions = [
 	{
 		number: 4,
 		text: "Which of these playable characters was featured in only one Smash Bros. title?",
-		imageUrl: "assets/images/sakurai.jpeg",
+		imageUrl: "assets/images/sakurai.jpg",
 		answer: "Snake",
 		wrongAnswers: ["Ice Climbers", "Mr. Game and Watch", "Meta Knight"],
 
@@ -63,9 +63,18 @@ var questions = [
 	{
 		number: 5,
 		text: "Who's gonna win Summit Spring 2017?",
-		imageUrl: "assets/images/sakurai.jpeg",
+		imageUrl: "assets/images/sakurai.jpg",
 		answer: "Hungrybox",
 		wrongAnswers: ["Armada", "Mango", "Mew2King"],
+
+		},
+
+		{
+		number: 6,
+		text: "Who's gonna win Genesis 5?",
+		imageUrl: "assets/images/sakurai.jpg",
+		answer: "Dizzkidboogie",
+		wrongAnswers: ["Plup", "SFAT", "Westballz"],
 
 		},
 
@@ -122,6 +131,7 @@ function nextQuestion() {
 	
 	gameStart = true;
 	
+
 		
 	questionTarget = questions[Math.floor(Math.random()*questionCount)].number - 1;
 
@@ -130,6 +140,7 @@ function nextQuestion() {
 	
 	questionText = questions[questionTarget].text;
 	answerSelect = questions[questionTarget].answer;
+	questionUrl  = questions[questionTarget].imageUrl;
 
 	if (alreadyAsked.indexOf(questionText) > -1 && alreadyAsked.length < questionCount ) {
 
@@ -184,6 +195,10 @@ function nextQuestion() {
 
 	}
 
+	//if (number < 1) { 
+
+	//nextQuestion();   }
+
 				$("#answers"+i).on("click", function(){
 				if (gameStart && answered < questionCount) {
 
@@ -195,23 +210,52 @@ function nextQuestion() {
 							points ++;
 							answered ++;
 							console.log("Correct! Score: " + points + " out of " + answered);
+
+
+
+
+							stop();
+							displayImage();
+
+							if (gameStart && answered < questionCount) {
+							setTimeout(run, 3000);
+							setTimeout(nextQuestion, 3000);
+						}
+						
+
 							
-							nextQuestion();
 						}
 				
 						else if(!$(this).data("isCorrect")) {
 
 							answered++;
 								console.log("WRONG! Score: " + points + " out of " + answered);
-								nextQuestion();
+								
+
+							stop();
+							displayLoss();
+							if (gameStart && answered < questionCount) {
+							setTimeout(run, 3000);
+							setTimeout(nextQuestion, 3000);
+						}
 						}
 
 						if (answered === questionCount){
 
-						
+							/*if () {
+
+								$("#questionText").html('<h2 id = "questionText">Correct!</h2>')
+								$("#questionText").append("<img src=" + questionUrl + " width='400px'>");
+
+							}
+							else if() {
+
+								$("#questionText").html('<h2 id = "questionText">Nope! The correct answer is '+answerSelect+'.</h2>')
+							}*/
+
 							stop();
-							
-							$("#questionText").html('<h2 id = "questionText">You answered '+ points +' out of '+ questionCount +' questions correctly.</h2>');
+							$("#stopwatch").html("");
+							$("#questionText").append('<h2 id = "questionText">You answered '+ points +' out of '+ questionCount +' questions correctly.</h2>');
 							$("#buttonHolder").html('<div id = "buttonHolder" style="text-align: center" class = "row"><button style=" width: 30%;" id = "resetButton" type="button" class="btn btn-success">Play Again</button></div>');
 							$("#answerHolder").html("");
 
@@ -276,6 +320,7 @@ gameStart = false;
 
 questionTarget = 100;
 questionText = "";
+questionUrl = "";
 answerSelect = "";
 
 askable  = [];
@@ -286,6 +331,25 @@ alreadyAsked =[];
 
 
 	nextQuestion();
+
+}
+
+
+
+function displayImage() {
+$("#questionText").html('<h2 id = "questionText">Correct!</h2>')
+$("#questionText").append("<img src=" + questionUrl + " width='300px'>");
+$("#stopwatch").html("");
+$("#answerHolder").html("");
+
+			}
+
+function displayLoss () {
+
+	$("#questionText").html('<h2 id = "questionText">Nope! The correct answer is '+answerSelect+'.</h2>')
+	$("#stopwatch").html("");
+	$("#answerHolder").html("");
+
 
 }
 
@@ -309,9 +373,45 @@ function run() {
 
       if (number < 1) {
 
-
-      		alert("Time Up!");
       		stop();
+      		
+      		answered++;
+
+      		$("#questionText").html('<h2 id = "questionText">Nope! The correct answer is '+answerSelect+'.</h2>')
+			$("#stopwatch").html("");
+			$("#answerHolder").html("");
+
+			if (gameStart && answered < questionCount) {
+
+      		setTimeout(nextQuestion, 3000);
+      		setTimeout(run, 3000);
+						}
+
+      		if (answered === questionCount){
+
+						
+							stop();
+							
+							$("#questionText").html('<h2 id = "questionText">You answered '+ points +' out of '+ questionCount +' questions correctly.</h2>');
+							$("#questionText").prepend('<h2 id = "questionText">Nope! The correct answer is '+answerSelect+'.</h2>')
+							$("#stopwatch").html("");
+							$("#buttonHolder").html('<div id = "buttonHolder" style="text-align: center" class = "row"><button style=" width: 30%;" id = "resetButton" type="button" class="btn btn-success">Play Again</button></div>');
+							$("#answerHolder").html("");
+
+							/*for (var i = 0; i < 4; i++) {
+								$("answers" + i).html("");
+							} */
+
+							$("#resetButton").on("click", function () {
+
+									$(this).slideUp()
+									.css("display: none");
+
+									reset();
+
+							});
+							
+						}
       }
       
     }

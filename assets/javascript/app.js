@@ -54,16 +54,16 @@ var questions = [
 	{
 		number: 4,
 		text: "Which of these playable characters was featured in only one Smash Bros. title?",
-		imageUrl: "assets/images/sakurai.jpg",
+		imageUrl: "assets/images/snake.jpg",
 		answer: "Snake",
 		wrongAnswers: ["Ice Climbers", "Mr. Game and Watch", "Meta Knight"],
 
 		},	
 
-	{
+		{
 		number: 5,
-		text: "Who's gonna win Summit Spring 2017?",
-		imageUrl: "assets/images/sakurai.jpg",
+		text: "Who was the winner of EVO 2016 for Super Smash Bros. Melee?",
+		imageUrl: "assets/images/hbox.jpg",
 		answer: "Hungrybox",
 		wrongAnswers: ["Armada", "Mango", "Mew2King"],
 
@@ -71,10 +71,20 @@ var questions = [
 
 		{
 		number: 6,
-		text: "Who's gonna win Genesis 5?",
-		imageUrl: "assets/images/sakurai.jpg",
-		answer: "Dizzkidboogie",
-		wrongAnswers: ["Plup", "SFAT", "Westballz"],
+		text: "Which of these characters has been in every Smash Bros. title?",
+		imageUrl: "assets/images/pika.png",
+		answer: "Pikachu",
+		wrongAnswers: ["Megaman", "Falco", "Peach"],
+
+		},
+
+
+		{
+		number: 7,
+		text: "Which is the only character that has ever been banned from competitive play?",
+		imageUrl: "assets/images/mk.jpg",
+		answer: "Meta Knight",
+		wrongAnswers: ["Fox", "Mewtwo", "Diddy Kong"],
 
 		},
 
